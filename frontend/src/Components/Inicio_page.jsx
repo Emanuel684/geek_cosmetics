@@ -98,7 +98,7 @@ class Inicio_page extends React.Component {
     console.log("Esta es el id de la tarea:", this.state.id_tarea);
     await axios
       .delete(
-        `http://localhost:4545/tareas/delete-tarea/${this.state.id_tarea}`
+        `http://localhost:4040/tareas/delete-tarea/${this.state.id_tarea}`
       )
       .then((res) => {
         console.log("Se ha eliminado una tarea.");
@@ -112,7 +112,7 @@ class Inicio_page extends React.Component {
   upgrade_tarea_get = async () => {
     axios
       .get(
-        `http://localhost:4545/tareas/tarea-upgrade-usuario/${this.state.id_tarea}`
+        `http://localhost:4040/tareas/tarea-upgrade-usuario/${this.state.id_tarea}`
       )
       .then((res) => {
         console.log("datos get:", res.data);
@@ -136,7 +136,7 @@ class Inicio_page extends React.Component {
   upgrade_tarea_put = async () => {
     console.log("upgrade foto:", this.state.foto);
     await axios
-      .put(`http://localhost:4545/tareas/info-tarea/${this.state.id_tarea}`, {
+      .put(`http://localhost:4040/tareas/info-tarea/${this.state.id_tarea}`, {
         nombre: this.state.form.nombre,
         foto: this.state.foto,
         prioridad: this.state.form.prioridad,
@@ -158,7 +158,7 @@ class Inicio_page extends React.Component {
     console.log("formulario post:", this.state.form);
     console.log("foto", this.state.foto);
     await axios
-      .post(`http://localhost:4545/tareas/new-tarea`, {
+      .post(`http://localhost:4040/tareas/new-tarea`, {
         nombre: this.state.form.nombre,
         foto: this.state.foto,
         prioridad: this.state.form.prioridad,
@@ -190,7 +190,7 @@ class Inicio_page extends React.Component {
       console.log("Se ejecuto el else if");
       await axios
         .get(
-          `http://localhost:4545/tareas/all-tareas-usuario-alta/${this.state.id_usuario.id_usuario}`
+          `http://localhost:4040/tareas/all-tareas-usuario-alta/${this.state.id_usuario.id_usuario}`
         )
         .then((res) => {
           console.log(res.data);
@@ -214,7 +214,7 @@ class Inicio_page extends React.Component {
   get_datos_media = async () => {
     await axios
       .get(
-        `http://localhost:4545/tareas/all-tareas-usuario-media/${this.state.id_usuario.id_usuario}`
+        `http://localhost:4040/tareas/all-tareas-usuario-media/${this.state.id_usuario.id_usuario}`
       )
       .then((res) => {
         console.log(res.data);
@@ -231,7 +231,7 @@ class Inicio_page extends React.Component {
   get_datos_baja = async () => {
     await axios
       .get(
-        `http://localhost:4545/tareas/all-tareas-usuario-baja/${this.state.id_usuario.id_usuario}`
+        `http://localhost:4040/tareas/all-tareas-usuario-baja/${this.state.id_usuario.id_usuario}`
       )
       .then((res) => {
         console.log(res.data);
@@ -256,7 +256,7 @@ class Inicio_page extends React.Component {
     const data = new FormData();
     data.append("file", this.state.File);
     await axios
-      .post(`http://localhost:4545/imageupload`, data)
+      .post(`http://localhost:4040/imageupload`, data)
       .then((res) => {
         console.log("Se ha subido una imagen");
         console.log(res);
