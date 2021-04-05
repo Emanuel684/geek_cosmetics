@@ -1,0 +1,22 @@
+.col {
+    padding-bottom: 25px;
+}
+.foto-tarea-img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.foto-tarea-img-ver{
+    border-radius: 13px;
+    width: 200px;
+    height: 200px;
+}
+
+.btnimgUploader{
+    font-weight: bold;
+    padding-left: 3%;
+    padding-right: 3%;
+}
