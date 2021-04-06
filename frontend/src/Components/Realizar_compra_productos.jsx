@@ -4,16 +4,13 @@ import "../Styles/Realizar_compra_productos.css";
 
 import { Link, Redirect } from "react-router-dom";
 
-
 class Inicio_page extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
-  };
+    this.state = {};
+  }
 
   render() {
-
     return (
       <>
         <header>
@@ -23,8 +20,6 @@ class Inicio_page extends React.Component {
                 <div
                   className="btn btn-danger"
                   type="button"
-                  data-toggle="modal"
-                  data-target="#imgUpload"
                 >
                   Regresar
                 </div>
@@ -43,25 +38,32 @@ class Inicio_page extends React.Component {
                 className="me-2"
                 viewBox="0 0 24 24"
               />
-
+              <Link to="/realizar_compra/orden">
               <div
                 className="btn btn-primary"
                 type="button"
-                data-toggle="modal"
-                data-target="#imgUpload"
               >
-                Nueva tarea
+                Siguiente
               </div>
+              </Link>
             </div>
           </div>
         </header>
 
         <main>
           <div className="album py-5 bg-light">
-            
-          Esta es la pagina de incio despues del login y donde comienza la parte de Realizar pedido.
-              
+            <div>
+              <div>
+                <p>descripcion</p>
+              </div>
+              <div>
+                <p>precio</p>
+              </div>
+              <div>
+                <p>existencia</p>
+              </div>
             </div>
+          </div>
         </main>
       </>
     );

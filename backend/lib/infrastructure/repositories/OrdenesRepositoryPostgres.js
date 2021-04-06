@@ -14,11 +14,11 @@ module.exports = class extends OrdenesRepository {
 
   async persist(ordenesEntity) {
 
-    const { id_articulo, id_orden, cantidad_articulo } = ordenesEntity;
+    const { numero_orden, nombre_usuario, fecha_orden, subtotal_orden, totalIVA_orden, total_orden } = ordenesEntity;
 
-    const seqOrdenes = await this.model.create({ id_articulo, id_orden, cantidad_articulo });
+    const seqOrdenes = await this.model.create({ numero_orden, nombre_usuario, fecha_orden, subtotal_orden, totalIVA_orden, total_orden });
 
-    let ordenes = new Ordenes(seqOrdenes.id_orden, seqOrdenes.id_articulo, seqOrdenes.id_orden, seqOrdenes.cantidad_articul);
+    let ordenes = new Ordenes(seqOrdenes.id_orden, seqOrdenes.numero_orden, seqOrdenes.nombre_usuario, seqOrdenes.fecha_orden, seqOrdenes.subtotal_orden, seqOrdenes.totalIVA_orden, seqOrdenes.total_orden);
 
     return ordenes
 
@@ -29,10 +29,10 @@ module.exports = class extends OrdenesRepository {
 
     if (!seqOrdenes) return false;
 
-    const { id_articulo, id_orden, cantidad_articulo } = ordenesEntity;
-    await seqOrdenes.update({ id_articulo, id_orden, cantidad_articulo },  {where: {id_orden: ordenesEntity.id_orden}});
+    const { numero_orden, nombre_usuario, fecha_orden, subtotal_orden, totalIVA_orden, total_orden } = ordenesEntity;
+    await seqOrdenes.update({ numero_orden, nombre_usuario, fecha_orden, subtotal_orden, totalIVA_orden, total_orden },  {where: {id_orden: ordenesEntity.id_orden}});
 
-    return new Ordenes(seqOrdenes.id_orden, seqOrdenes.id_articulo, seqOrdenes.id_orden, seqOrdenes.cantidad_articulo);
+    return new Ordenes(seqOrdenes.id_orden, seqOrdenes.numero_orden, seqOrdenes.nombre_usuario, seqOrdenes.fecha_orden, seqOrdenes.subtotal_orden, seqOrdenes.totalIVA_orden, total_orden);
   }
 
   async remove(id_orden) {
@@ -46,7 +46,7 @@ module.exports = class extends OrdenesRepository {
   async get(id_orden) {
     const seqOrdenes = await this.model.findByPk(id_orden);
     if(seqOrdenes)
-      return new Ordenes(seqOrdenes.id_orden, seqOrdenes.id_articulo, seqOrdenes.id_orden, seqOrdenes.cantidad_articulo);
+      return new Ordenes(seqOrdenes.id_orden, seqOrdenes.numero_orden, seqOrdenes.nombre_usuario, seqOrdenes.fecha_orden, seqOrdenes.subtotal_orden, seqOrdenes.totalIVA_orden, seqOrdenes.total_orden);
     else
       return false;
   }
@@ -54,7 +54,7 @@ module.exports = class extends OrdenesRepository {
   async find() {
     const seqOrdenes = await this.model.findAll();
     return seqOrdenes.map((seqOrdenes) => {
-      let data = new Answers(seqOrdenes.id_orden, seqOrdenes.id_articulo, seqOrdenes.id_orden, seqOrdenes.cantidad_articulo);
+      let data = new Ordenes(seqOrdenes.id_orden, seqOrdenes.numero_orden, seqOrdenes.nombre_usuario, seqOrdenes.fecha_orden, seqOrdenes.subtotal_orden, seqOrdenes.totalIVA_orden, seqOrdenes.total_orden);
       return data;
     });
   }
