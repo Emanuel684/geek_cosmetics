@@ -13,15 +13,15 @@ class Inicio_page extends React.Component {
   render() {
     return (
       <>
-        <section id="welcome-section" class="welcome-section">
+        <section id="welcome-section" className="welcome-section">
           <h1>Hola, soy Emanuel Acevedo Muñoz</h1>
           <p>un desarrollador de software</p>
         </section>
 
-        <section id="projects" class="projects-section">
-          <h2 class="projects-section-header">¿Qué quieres hacer?</h2>
+        <section id="projects" className="projects-section">
+          <h2 className="projects-section-header">¿Qué quieres hacer?</h2>
 
-          <div class="projects-grid">
+          <div className="projects-grid">
             <Link to="/realizar_compra/productos">
             <button className="btn btn-light">
               <img src="https://image.flaticon.com/icons/png/128/711/711979.png" />
@@ -37,22 +37,22 @@ class Inicio_page extends React.Component {
           </div>
         </section>
 
-        <section id="contact" class="contact-section">
-          <div class="contact-section-header">
+        <section id="contact" className="contact-section">
+          <div className="contact-section-header">
             <h2>Trabajemos juntos ...</h2>
           </div>
-          <div class="contact-links">
+          <div className="contact-links">
             <a
               id="profile-link"
               href="https://github.com/Emanuel684"
               target="_blank"
-              class="btn contact-details"
+              className="btn contact-details"
             >
-              <i class="fab fa-github"></i> GitHub
+              <i className="fab fa-github"></i> GitHub
             </a>
 
-            <a href="emanuelacag@gmail.com" target="_blank" class="btn contact-details">
-              <i class="fas fa-at"></i> Correo electronico
+            <a href="emanuelacag@gmail.com" target="_blank" className="btn contact-details">
+              <i className="fas fa-at"></i> Correo electronico
             </a>
           </div>
         </section>
@@ -64,7 +64,7 @@ class Inicio_page extends React.Component {
               href="https://github.com/Emanuel684/geek_cosmetics"
               target="_blank"
             >
-               Emanuel Acevedo Muñoz <i class="fab fa-free-code-camp"></i>
+               Emanuel Acevedo Muñoz <i className="fab fa-free-code-camp"></i>
             </a>
           </p>
         </footer>

@@ -5,15 +5,9 @@ const environment = require('../../config/environment');
 
 const sequelize = new Sequelize(environment.database.url);
 
-sequelize.import('./models/AuthUsers');
-sequelize.import('./models/TtTopics');
-sequelize.import('./models/TtBancksQuestions');
-sequelize.import('./models/TtOptions');
-sequelize.import('./models/TtDifficultiesQuestions');
-// Cosas que faltan
-sequelize.import('./models/TtDifficultiesTests');
-sequelize.import('./models/TtAnswers');
-sequelize.import('./models/TtTests');
-sequelize.import('./models/TtTestsStudents');
+sequelize.import('./models/Articulos');
+sequelize.import('./models/ArticulosOrden');
+sequelize.import('./models/Ordenes');
+
 
 module.exports = sequelize;

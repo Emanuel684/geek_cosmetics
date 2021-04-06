@@ -25,7 +25,7 @@ const createServer = async () => {
       plugin: HapiSwagger,
       options: {
         info: {
-          title: 'Academia Geek App Documentation',
+          title: 'Geek Cosmetics Documentation',
           version: Package.version,
         },
       }
@@ -55,20 +55,9 @@ const createServer = async () => {
 
   // Register custom plugins
   await server.register([
-    require('./oauth'),
-    require('../../interfaces/routes/hello'),
-    require('../../interfaces/routes/private'),
-    require('../../interfaces/routes/users'),
-    require('../../interfaces/routes/questions'),
-    require('../../interfaces/routes/topics'),
-    require('../../interfaces/routes/options'),
-    require('../../interfaces/routes/difficultiesquestions'),
-    // Las que faltan
-    require('../../interfaces/routes/difficultiestests'),
-    require('../../interfaces/routes/testsstudents'),
-    require('../../interfaces/routes/tests'),
-    require('../../interfaces/routes/answers'),
-
+    require('../../interfaces/routes/articulos'),
+    require('../../interfaces/routes/articulos_orden'),
+    require('../../interfaces/routes/ordenes')
   ]);
 
   server.app.serviceLocator = require('../../infrastructure/config/service-locator');
