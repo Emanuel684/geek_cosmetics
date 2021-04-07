@@ -1,22 +1,13 @@
-.col {
-    padding-bottom: 25px;
-}
-.foto-tarea-img{
+.div-cards {
     display: flex;
-    align-items: center;
     justify-content: center;
-    text-align: center;
-    margin-top: 10px;
 }
 
-.foto-tarea-img-ver{
-    border-radius: 13px;
-    width: 200px;
-    height: 200px;
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    grid-gap: 20px;
+    grid-column-gap: 50px;
 }
 
-.btnimgUploader{
-    font-weight: bold;
-    padding-left: 3%;
-    padding-right: 3%;
-}

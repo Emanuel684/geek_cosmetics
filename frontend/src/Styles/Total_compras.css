@@ -1,14 +1,39 @@
-.table_total_compras {
-  border: 2px solid black;
+.div-table-total-compras {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 4px;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+.table-total-compras {
+  border-collapse: collapse;
   width: 100%;
+  background-color: white;
 }
 
-tr, td {
+.tr-total-compras:nth-child(even) {
+  background-color: #424547;
+  color: white;
+}
+
+.tr-total-compras:hover .td-total-compras {
+  background-color: rgb(196, 196, 196);
+  color: black;
+  font-weight: 700;
+}
+
+.th-total-compras,
+.td-total-compras {
   width: 25%;
   text-align: center;
   vertical-align: top;
-  border: 2px solid black;
-  border-spacing: 0;
   border-collapse: collapse;
-  padding: 0.5em;
+  padding: 0.4em;
+}
+
+.thrad-total-compras {
+  color: white;
+  background-color: #198754;
+  border-bottom: solid 5px #023a20;
 }

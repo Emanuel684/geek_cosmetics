@@ -8,13 +8,33 @@ import { Redirect, Link } from "react-router-dom";
 class Login_usuarios extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ordenes: [],
+    };
   }
 
+  //Petición get para traer la lista de productos registradas en la base de datos
+  componentWillMount = async () => {
+    await axios
+      .get(`http://laptop-8cs5oh6k:3001/ordenes`)
+      .then((res) => {
+        this.setState({
+          ordenes: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err.massage);
+      });
+  };
+  // Fin get
+
   render() {
+    console.log(this.state.ordenes);
+    const Ordenes = this.state.ordenes;
+
     return (
       <>
-      <header>
+        <header>
           <div className="navbar navbar-dark bg-dark shadow-sm">
             <div className="container">
               <Link to="/">
@@ -45,98 +65,55 @@ class Login_usuarios extends React.Component {
           </div>
         </header>
         <main>
-        <div className="text-center">
-          <div >
-            {/* <img
+          <div className="text-center">
+            <div>
+              {/* <img
               className="mb-4"
               src="https://1.bp.blogspot.com/-9phAiObUAOk/X8BdHu3MhvI/AAAAAAAAIq8/re7gbeTQ214vkvIgjFiys4hNdQIs-eKAACLcBGAsYHQ/s999/login.png"
               alt=""
               width="72"
               height="72"
             /> */}
-            <h1 className="h3 mb-3 fw-normal">
-              Total compras registradas en nuestra plataforma.
-            </h1>
-            <div>
-              <table className="table_total_compras">
-                <tr>
-                  <td>Numer de orden</td>
+              <h1 className="h3 mb-3 fw-normal">
+                Total compras registradas en nuestra plataforma.
+              </h1>
+              <div className="div-table-total-compras">
+                <table className="table-total-compras">
+                  <thead className="thrad-total-compras">
+                    <tr className="tr-total-compras">
+                      <th className="th-total-compras">Numer de orden</th>
 
-                  <td>Subtotal</td>
+                      <th className="th-total-compras">Subtotal</th>
 
-                  <td>Total IVA</td>
+                      <th className="th-total-compras">Total IVA</th>
 
-                  <td>Total</td>
-                </tr>
+                      <th className="th-total-compras">Total</th>
+                    </tr>
+                  </thead>
+                  {Ordenes.map((datosT) => {
+                    return (
+                      <tr className="tr-total-compras">
+                        <td className="td-total-compras">
+                          {datosT.numero_orden}
+                        </td>
 
-                <tr>
-                  <td>456789324</td>
+                        <td className="td-total-compras">
+                          ${datosT.subtotal_orden}
+                        </td>
 
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-                <tr>
-                  <td>456789324</td>
-
-                  <td>$894.000</td>
-
-                  <td>$169.860</td>
-                  <td>$1'063.860</td>
-                </tr>
-              </table>
+                        <td className="td-total-compras">
+                          ${datosT.totalIVA_orden}
+                        </td>
+                        <td className="td-total-compras">
+                          ${datosT.total_orden}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </table>
+              </div>
             </div>
           </div>
-        </div>
         </main>
       </>
     );

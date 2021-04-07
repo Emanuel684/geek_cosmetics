@@ -187,3 +187,15 @@ footer i {
   margin: 0;
   padding: 0;
 }
+
+.p-title-buttons {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.7rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.icon-buttons {
+  width: 100px;
+  height: 100px;
+}
