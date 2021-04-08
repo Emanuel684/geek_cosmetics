@@ -1,12 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import Total_compras from '../Components/Total_compras';
-
+import Total_compras from "../Components/Total_compras";
 
 function total_compras() {
   return (
     <>
-    <Total_compras />
+      <Total_compras />
     </>
   );
 }

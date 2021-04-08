@@ -1,18 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import Realizar_compra_detalles_orden from './Pages/realizar_compra_detalles_orden';
-import Realizar_compra_orden from './Pages/realizar_compra_orden';
-import Realizar_compra_productos from './Pages/realizar_compra_productos';
+import Realizar_compra_detalles_orden from "./Pages/realizar_compra_detalles_orden";
+import Realizar_compra_orden from "./Pages/realizar_compra_orden";
+import Realizar_compra_productos from "./Pages/realizar_compra_productos";
 
 // Nuevas rutas
-import Inicio_page from './Pages/inicio_page';
-import Total_compras from './Pages/total_compras';
+import Inicio_page from "./Pages/inicio_page";
+import Total_compras from "./Pages/total_compras";
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+import "bootstrap/dist/css/bootstrap.min.css";
+import $ from "jquery";
+import Popper from "popper.js";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -20,7 +20,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <Switch>
-      <Route path="/" exact>
+        <Route path="/" exact>
           <Inicio_page />
         </Route>
         <Route path="/total_compras" exact>
@@ -40,4 +40,3 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
-

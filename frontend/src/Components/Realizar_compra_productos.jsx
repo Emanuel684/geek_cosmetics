@@ -19,19 +19,62 @@ class Inicio_page extends React.Component {
       form: {
         cantidad: 0,
       },
+      bool1: false,
     };
   }
 
+  validador_continuar = () => {
+    function time2() {
+      setTimeout(function () {
+        document.getElementById("alerta2").style.display = "none";
+      }, 1500);
+      document.getElementById("alerta2").style.display = "block";
+    }
+
+    if (Articulos.length == 0) {
+      console.log("Selecciones un producto para continuar");
+      time2();
+    } else {
+      this.setState({
+        bool1: true,
+      });
+    }
+  };
+
   // Enviar un articulo a la canasta
   Push_articulo = () => {
-    this.props.Articulos.push({
-      id_articulo: this.state.id_articulo,
-      descripcion_articulo: this.state.descripcion_articulo,
-      precio: this.state.precio,
-      existencia: this.state.existencia,
-      cantidad: this.state.form.cantidad,
-    });
+    if (this.state.existencia - this.state.form.cantidad < 0) {
+      console.log(
+        "Esta es antes de pushear",
+        this.state.existencia - this.state.form.cantidad
+      );
+      console.log("No se puede seleccionar este archivo con esa cantidad.");
+    } else {
+      this.props.Articulos.push({
+        id_articulo: this.state.id_articulo,
+        descripcion_articulo: this.state.descripcion_articulo,
+        precio: this.state.precio,
+        existencia: this.state.existencia,
+        cantidad: this.state.form.cantidad,
+      });
 
+      time();
+
+      function time() {
+        setTimeout(function () {
+          document.getElementById("alerta").style.display = "none";
+        }, 1500);
+        document.getElementById("alerta").style.display = "block";
+      }
+
+      this.setState({
+        form: {
+          cantidad: 0,
+        },
+      });
+    }
+
+    console.log("Articulos", Articulos);
     return this;
   };
   // Fin enviar un articulo a la canasta
@@ -89,17 +132,29 @@ class Inicio_page extends React.Component {
                 className="me-2"
                 viewBox="0 0 24 24"
               />
-              <Link to="/realizar_compra/orden">
-                <div className="btn btn-primary" type="button">
-                  Siguiente
-                </div>
-              </Link>
+
+              <button
+                className="btn btn-primary"
+                type="button"
+                onClick={this.validador_continuar}
+              >
+                Siguiente
+              </button>
             </div>
           </div>
         </header>
 
         <main>
           <div className="album py-5 bg-light">
+            <div id="alerta3" class="alert alert-danger" role="alert">
+              Debes seleccionar una cantidad antes de agregarlo.
+            </div>
+            <div id="alerta2" class="alert alert-danger" role="alert">
+              Selecciona un producto para continuar.
+            </div>
+            <div id="alerta" class="alert alert-success" role="alert">
+              Se agrego correctamente a la bolsa.
+            </div>
             <div className="div-cards">
               <div className="grid-cards">
                 {Articulos.map((datosT) => {
@@ -128,26 +183,45 @@ class Inicio_page extends React.Component {
                           placeholder="0"
                           onChange={this.handleChange}
                           name="cantidad"
+                          min="0"
+                          max="200"
                         />
                         <hr />
-                        <button
-                          onClick={async () => {
-                            console.log(datosT.id_articulo);
-                            console.log(datosT.descripcion_articulo);
-                            console.log(datosT.precio);
-                            console.log(datosT.existencia);
-                            await this.setState({
-                              id_articulo: datosT.id_articulo,
-                              descripcion_articulo: datosT.descripcion_articulo,
-                              precio: datosT.precio,
-                              existencia: datosT.existencia,
-                            });
-                            this.Push_articulo();
-                          }}
-                          className="btn btn-primary"
-                        >
-                          Agregar
-                        </button>
+                        <div class="d-grid gap-2">
+                          <button
+                            onClick={async () => {
+                              if (this.state.form.cantidad == 0) {
+                                console.log(
+                                  "Selecciones una cantidad",
+                                  this.state.form.cantidad
+                                );
+                                time3();
+                                function time3() {
+                                  setTimeout(function () {
+                                    document.getElementById(
+                                      "alerta3"
+                                    ).style.display = "none";
+                                  }, 1500);
+                                  document.getElementById(
+                                    "alerta3"
+                                  ).style.display = "block";
+                                }
+                              } else {
+                                await this.setState({
+                                  id_articulo: datosT.id_articulo,
+                                  descripcion_articulo:
+                                    datosT.descripcion_articulo,
+                                  precio: datosT.precio,
+                                  existencia: datosT.existencia,
+                                });
+                                this.Push_articulo();
+                              }
+                            }}
+                            className="btn btn-primary btn-all"
+                          >
+                            Agregar
+                          </button>
+                        </div>
                       </div>
                     </div>
                   );
@@ -156,6 +230,13 @@ class Inicio_page extends React.Component {
             </div>
           </div>
         </main>
+        {this.state.bool1 && (
+          <Redirect
+            to={{
+              pathname: "/realizar_compra/orden",
+            }}
+          ></Redirect>
+        )}
       </>
     );
   }

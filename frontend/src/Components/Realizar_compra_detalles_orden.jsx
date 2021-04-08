@@ -43,6 +43,14 @@ class realizar_compra_detalles_orden extends React.Component {
   };
   // Fin
 
+  LimpiarArray = () => {
+    console.log("Array lleno", Articulos);
+    Articulos.map((datosT) => {
+      Articulos.splice(Articulos.indexOf(datosT), 1);
+    });
+    console.log("Array vacido", Articulos);
+  };
+
   render() {
     return (
       <>
@@ -110,7 +118,10 @@ class realizar_compra_detalles_orden extends React.Component {
               <hr />
             </div>
             <Link to="/">
-              <button className="w-100 btn btn-lg btn-primary">
+              <button
+                onClick={this.LimpiarArray()}
+                className="w-100 btn btn-lg btn-primary"
+              >
                 Finalizar
               </button>
             </Link>

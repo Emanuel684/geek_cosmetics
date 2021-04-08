@@ -21,29 +21,44 @@ class Login_usuarios extends React.Component {
         apellidos: null,
         fecha_orden: this.fecha_orden(),
       },
-      bool: false
+      bool: false,
     };
   }
 
   // Saber el total de costo de los productos
   componentWillMount = async () => {
+    //     function removeDuplicates(originalArray, prop) {
+    //       var newArray = [];
+    //       var lookupObject  = {};
+
+    //       for(var i in originalArray) {
+    //          lookupObject[originalArray[i][prop]] = originalArray[i];
+    //       }
+
+    //       for(i in lookupObject) {
+    //           newArray.push(lookupObject[i]);
+    //       }
+    //        return newArray;
+    //   }
+
+    //   var uniqueArray = removeDuplicates(Articulos, "id_articulo");
+    // console.log("uniqueArray is: ", uniqueArray);
+
     var subtotal = 0;
     var totalIVA = 0;
     var total_orden = 0;
     var iva = 1.19;
 
     Articulos.map((datosT) => {
-      console.log("precio:", datosT.precio);
       totalIVA =
         totalIVA +
         (datosT.precio * datosT.cantidad * iva -
           datosT.precio * datosT.cantidad);
-      console.log("totalIVA", totalIVA);
+
       subtotal = subtotal + datosT.precio * datosT.cantidad;
       total_orden = totalIVA + subtotal;
-      console.log("total_orden", total_orden);
     });
-    console.log("subtotal", subtotal);
+
     this.setState({
       subtotal: subtotal,
       totalIVA: totalIVA,
@@ -51,21 +66,6 @@ class Login_usuarios extends React.Component {
     });
   };
   // Fin
-
-  // Eliminar un articulo
-  Drop_articulo = () => {
-    console.log("Articulos:", Articulos);
-
-    var arreglo = [1, 2, 3, 4, 5];
-
-    var indice = arreglo.indexOf(3); // obtenemos el indice
-    arreglo.splice(indice, 1); // 1 es la cantidad de elemento a eliminar
-
-    console.log("Articulos:", Articulos);
-
-    return this;
-  };
-  // Fin eliminar un producto de la canastas
 
   // Función "añadir cero" para el id de la orden.
   addZero = (x, n) => {
@@ -171,8 +171,8 @@ class Login_usuarios extends React.Component {
         //Fin post
       });
       this.setState({
-        bool: true
-      })
+        bool: true,
+      });
     }
   };
 
@@ -205,7 +205,9 @@ class Login_usuarios extends React.Component {
                   digitada.
                 </p>
               </div>
-
+              <div id="alerta2" class="alert alert-danger" role="alert">
+                Selecciona un producto para continuar.
+              </div>
               <div>
                 <div>
                   <h4 className="mb-3">Formulario de la orden</h4>
@@ -300,7 +302,18 @@ class Login_usuarios extends React.Component {
                               </td>
                               <td className="td-ordenes">{datosT.cantidad}</td>
                               <td className="td-ordenes">
-                                <button className="btn btn-danger">X</button>
+                                <button
+                                  className="btn btn-danger"
+                                  onClick={async () => {
+                                    Articulos.splice(
+                                      Articulos.indexOf(datosT),
+                                      1
+                                    );
+                                    this.componentWillMount();
+                                  }}
+                                >
+                                  X
+                                </button>
                               </td>
                             </tr>
                           );
@@ -339,19 +352,27 @@ class Login_usuarios extends React.Component {
                   </div>
                   <div className="btn-agregar">
                     <hr className="my-4" />
-                    {/* <Link to="/realizar_compra/detalles_orden"> */}
                     <button
                       className="w-100 btn btn-primary btn-lg"
-                      //onClick={this.post_orden}
-                      //onClick={this.post_put_all}
                       onClick={async () => {
-                        await this.post_orden();
+                        if (Articulos.length == 0) {
+                          console.log("No hay nada en tu bolsa.");
+                          time2();
+                          function time2() {
+                            setTimeout(function () {
+                              document.getElementById("alerta2").style.display =
+                                "none";
+                            }, 1500);
+                            document.getElementById("alerta2").style.display =
+                              "block";
+                          }
+                        } else {
+                          await this.post_orden();
+                        }
                       }}
                     >
                       Agregar
                     </button>
-                    {/* </Link> */}
-                    
                     <br />
                   </div>
                 </div>
