@@ -11,6 +11,7 @@ class Login_usuarios extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      id_orden: 0,
       subtotal: 0,
       totalIVA: 0,
       total_orden: 0,
@@ -19,10 +20,8 @@ class Login_usuarios extends React.Component {
         nombres: null,
         apellidos: null,
         fecha_orden: this.fecha_orden(),
-        subtotal_orden: null,
-        totalIVA_orden: null,
-        total_orden: null,
       },
+      bool: false
     };
   }
 
@@ -35,17 +34,20 @@ class Login_usuarios extends React.Component {
 
     Articulos.map((datosT) => {
       console.log("precio:", datosT.precio);
-      totalIVA = totalIVA + (((datosT.precio * datosT.cantidad) * iva) - datosT.precio * datosT.cantidad);
-      console.log('totalIVA', totalIVA);
+      totalIVA =
+        totalIVA +
+        (datosT.precio * datosT.cantidad * iva -
+          datosT.precio * datosT.cantidad);
+      console.log("totalIVA", totalIVA);
       subtotal = subtotal + datosT.precio * datosT.cantidad;
       total_orden = totalIVA + subtotal;
-      console.log('total_orden', total_orden);
+      console.log("total_orden", total_orden);
     });
     console.log("subtotal", subtotal);
     this.setState({
       subtotal: subtotal,
       totalIVA: totalIVA,
-      total_orden: total_orden
+      total_orden: total_orden,
     });
   };
   // Fin
@@ -104,19 +106,75 @@ class Login_usuarios extends React.Component {
         nombre_usuario:
           this.state.form.nombres + " " + this.state.form.apellidos,
         fecha_orden: this.state.form.fecha_orden,
-        subtotal_orden: this.state.form.subtotal_orden,
-        totalIVA_orden: this.state.form.totalIVA_orden,
-        total_orden: this.state.form.total_orden,
+        subtotal_orden: this.state.subtotal,
+        totalIVA_orden: this.state.totalIVA,
+        total_orden: this.state.total_orden,
       })
       .then((res) => {
         console.log("Se ha creado una nueva orden");
-        console.log(res);
+        console.log("id_orden", res.data.id_orden);
+        this.setState({
+          id_orden: res.data.id_orden,
+        });
       })
       .catch((err) => {
         console.log(err.massage);
       });
+    this.post_put_all();
   };
   //Fin post
+
+  post_put_all = async () => {
+    if (this.state.id_orden == 0) {
+      console.log("id_orden es 0", this.state.id_orden);
+      //this.post_put_all();
+    } else {
+      console.log("id_orden en las peticiones:", this.state.id_orden);
+
+      Articulos.map((datosT) => {
+        //Petición post para agregar un nuevo registro en la tabla de articulos_orden
+
+        axios
+          .post(`http://laptop-8cs5oh6k:3001/articulos_orden`, {
+            id_articulo: datosT.id_articulo,
+            id_orden: this.state.id_orden,
+            cantidad_articulo: datosT.cantidad,
+          })
+          .then((res) => {
+            console.log(
+              "Se ha creado un nuevo registro en la tabla articulos_orden"
+            );
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err.massage);
+          });
+
+        //Fin post
+
+        //Petición post para agregar un nuevo registro en la tabla de articulos_orden
+
+        axios
+          .put(`http://laptop-8cs5oh6k:3001/articulos/${datosT.id_articulo}`, {
+            descripcion_articulo: datosT.descripcion_articulo,
+            precio: datosT.precio,
+            existencia: datosT.existencia - datosT.cantidad,
+          })
+          .then((res) => {
+            console.log("Se ha actualizado la informacion del articulo");
+            console.log(res);
+          })
+          .catch((err) => {
+            console.log(err.massage);
+          });
+
+        //Fin post
+      });
+      this.setState({
+        bool: true
+      })
+    }
+  };
 
   handleChange = async (e) => {
     e.persist();
@@ -162,7 +220,6 @@ class Login_usuarios extends React.Component {
                         className="form-control"
                         id="numero_orden"
                         placeholder="123456789"
-                        //onChange={this.handleChange}
                         name="numero_orden"
                         value={this.state.form.numero_orden}
                         required
@@ -206,8 +263,6 @@ class Login_usuarios extends React.Component {
                         className="form-control"
                         id="datetime-local"
                         placeholder={this.state.form.fecha_orden}
-                        //onChange={this.handleChange}
-                        value={this.state.form.fecha_orden}
                         name="fecha_orden"
                         disabled
                       />
@@ -270,9 +325,13 @@ class Login_usuarios extends React.Component {
                               ${this.state.subtotal}
                             </td>
 
-                            <td className="td-detalles-ordenes">${this.state.totalIVA}</td>
+                            <td className="td-detalles-ordenes">
+                              ${this.state.totalIVA}
+                            </td>
 
-                            <td className="td-detalles-ordenes">${this.state.total_orden}</td>
+                            <td className="td-detalles-ordenes">
+                              ${this.state.total_orden}
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -280,14 +339,19 @@ class Login_usuarios extends React.Component {
                   </div>
                   <div className="btn-agregar">
                     <hr className="my-4" />
-                    <Link to="/realizar_compra/detalles_orden">
-                      <button
-                        className="w-100 btn btn-primary btn-lg"
-                        //onClick={this.post_usuario}
-                      >
-                        Agregar
-                      </button>
-                    </Link>
+                    {/* <Link to="/realizar_compra/detalles_orden"> */}
+                    <button
+                      className="w-100 btn btn-primary btn-lg"
+                      //onClick={this.post_orden}
+                      //onClick={this.post_put_all}
+                      onClick={async () => {
+                        await this.post_orden();
+                      }}
+                    >
+                      Agregar
+                    </button>
+                    {/* </Link> */}
+                    
                     <br />
                   </div>
                 </div>
@@ -295,6 +359,13 @@ class Login_usuarios extends React.Component {
             </main>
           </div>
         </div>
+        {this.state.bool && (
+          <Redirect
+            to={{
+              pathname: "/realizar_compra/detalles_orden",
+            }}
+          ></Redirect>
+        )}
       </>
     );
   }

@@ -32,14 +32,6 @@ class Inicio_page extends React.Component {
       cantidad: this.state.form.cantidad,
     });
 
-    console.log("Articulos:", Articulos);
-
-    // document.getElementById("cantidad").value = "0"
-
-    // document.getElementById("button-articulo").style.backgroundColor = "#5cb85c";
-
-    // document.getElementById("button-articulo").textContent = "Agregado";
-
     return this;
   };
   // Fin enviar un articulo a la canasta
@@ -71,7 +63,6 @@ class Inicio_page extends React.Component {
   };
 
   render() {
-    console.log(this.state.articulos);
     const Articulos = this.state.articulos;
 
     return (
@@ -113,7 +104,11 @@ class Inicio_page extends React.Component {
               <div className="grid-cards">
                 {Articulos.map((datosT) => {
                   return (
-                    <div id="div-agregado" className="card" style={{ width: "18rem" }}>
+                    <div
+                      id="div-agregado"
+                      className="card"
+                      style={{ width: "18rem" }}
+                    >
                       {/* <img src="..." class="card-img-top" alt="..." /> */}
                       <div className="card-body">
                         <h3 className="card-title">
@@ -134,7 +129,7 @@ class Inicio_page extends React.Component {
                           onChange={this.handleChange}
                           name="cantidad"
                         />
-                        <hr/>
+                        <hr />
                         <button
                           onClick={async () => {
                             console.log(datosT.id_articulo);
