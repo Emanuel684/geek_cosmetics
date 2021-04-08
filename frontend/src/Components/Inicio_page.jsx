@@ -2,7 +2,7 @@ import React from "react";
 
 import "../Styles/Inicio_page.css";
 
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Inicio_page extends React.Component {
   constructor(props) {

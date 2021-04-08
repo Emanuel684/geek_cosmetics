@@ -6,7 +6,7 @@ import "../Styles/Realizar_compra_productos.css";
 import { Link, Redirect } from "react-router-dom";
 import { Articulos } from "../Utiles/Mocks/Articulos";
 
-class Inicio_page extends React.Component {
+class Realizar_compra_productos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -44,11 +44,15 @@ class Inicio_page extends React.Component {
   // Enviar un articulo a la canasta
   Push_articulo = () => {
     if (this.state.existencia - this.state.form.cantidad < 0) {
-      console.log(
-        "Esta es antes de pushear",
-        this.state.existencia - this.state.form.cantidad
-      );
-      console.log("No se puede seleccionar este archivo con esa cantidad.");
+      time3();
+      function time3() {
+        setTimeout(function () {
+          document.getElementById("alerta3").style.display = "none";
+          document.getElementById("alerta3").textContent = "Debes seleccionar una cantidad antes de agregarlo.";
+        }, 1500);
+        document.getElementById("alerta3").style.display = "block";
+        document.getElementById("alerta3").textContent = "No se puede comprar esa cantidad.";
+      }
     } else {
       this.props.Articulos.push({
         id_articulo: this.state.id_articulo,
@@ -74,7 +78,6 @@ class Inicio_page extends React.Component {
       });
     }
 
-    console.log("Articulos", Articulos);
     return this;
   };
   // Fin enviar un articulo a la canasta
@@ -102,7 +105,6 @@ class Inicio_page extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
   };
 
   render() {
@@ -191,10 +193,10 @@ class Inicio_page extends React.Component {
                           <button
                             onClick={async () => {
                               if (this.state.form.cantidad == 0) {
-                                console.log(
-                                  "Selecciones una cantidad",
-                                  this.state.form.cantidad
-                                );
+                                // console.log(
+                                //   "Selecciones una cantidad",
+                                //   this.state.form.cantidad
+                                // );
                                 time3();
                                 function time3() {
                                   setTimeout(function () {
@@ -242,4 +244,4 @@ class Inicio_page extends React.Component {
   }
 }
 
-export default Inicio_page;
+export default Realizar_compra_productos;

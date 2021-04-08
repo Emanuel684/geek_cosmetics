@@ -1,10 +1,8 @@
 import React from "react";
-//import axios from "axios";
-//import uuid from "react-uuid";
 
 import "../Styles/Realizar_compra_detalles_orden.css";
 
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { Articulos } from "../Utiles/Mocks/Articulos";
 
@@ -44,11 +42,9 @@ class realizar_compra_detalles_orden extends React.Component {
   // Fin
 
   LimpiarArray = () => {
-    console.log("Array lleno", Articulos);
     Articulos.map((datosT) => {
       Articulos.splice(Articulos.indexOf(datosT), 1);
     });
-    console.log("Array vacido", Articulos);
   };
 
   render() {

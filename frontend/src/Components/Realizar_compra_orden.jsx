@@ -7,7 +7,7 @@ import { Redirect, Link } from "react-router-dom";
 
 import { Articulos } from "../Utiles/Mocks/Articulos";
 
-class Login_usuarios extends React.Component {
+class Realizar_compra_orden extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -126,10 +126,9 @@ class Login_usuarios extends React.Component {
 
   post_put_all = async () => {
     if (this.state.id_orden == 0) {
-      console.log("id_orden es 0", this.state.id_orden);
-      //this.post_put_all();
+      //console.log("id_orden es 0", this.state.id_orden);
     } else {
-      console.log("id_orden en las peticiones:", this.state.id_orden);
+      //console.log("id_orden en las peticiones:", this.state.id_orden);
 
       Articulos.map((datosT) => {
         //Petición post para agregar un nuevo registro en la tabla de articulos_orden
@@ -141,10 +140,10 @@ class Login_usuarios extends React.Component {
             cantidad_articulo: datosT.cantidad,
           })
           .then((res) => {
-            console.log(
-              "Se ha creado un nuevo registro en la tabla articulos_orden"
-            );
-            console.log(res);
+            // console.log(
+            //   "Se ha creado un nuevo registro en la tabla articulos_orden"
+            // );
+            // console.log(res);
           })
           .catch((err) => {
             console.log(err.massage);
@@ -161,8 +160,8 @@ class Login_usuarios extends React.Component {
             existencia: datosT.existencia - datosT.cantidad,
           })
           .then((res) => {
-            console.log("Se ha actualizado la informacion del articulo");
-            console.log(res);
+            // console.log("Se ha actualizado la informacion del articulo");
+            // console.log(res);
           })
           .catch((err) => {
             console.log(err.massage);
@@ -184,7 +183,6 @@ class Login_usuarios extends React.Component {
         [e.target.name]: e.target.value,
       },
     });
-    console.log(this.state.form);
   };
 
   render() {
@@ -356,7 +354,6 @@ class Login_usuarios extends React.Component {
                       className="w-100 btn btn-primary btn-lg"
                       onClick={async () => {
                         if (Articulos.length == 0) {
-                          console.log("No hay nada en tu bolsa.");
                           time2();
                           function time2() {
                             setTimeout(function () {
@@ -392,4 +389,4 @@ class Login_usuarios extends React.Component {
   }
 }
 
-export default Login_usuarios;
+export default Realizar_compra_orden;

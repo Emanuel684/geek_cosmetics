@@ -3,9 +3,9 @@ import axios from "axios";
 
 import "../Styles/Total_compras.css";
 
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-class Login_usuarios extends React.Component {
+class Total_compras extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +29,6 @@ class Login_usuarios extends React.Component {
   // Fin get
 
   render() {
-    console.log(this.state.ordenes);
     const Ordenes = this.state.ordenes;
 
     return (
@@ -67,13 +66,6 @@ class Login_usuarios extends React.Component {
         <main>
           <div className="text-center">
             <div>
-              {/* <img
-              className="mb-4"
-              src="https://1.bp.blogspot.com/-9phAiObUAOk/X8BdHu3MhvI/AAAAAAAAIq8/re7gbeTQ214vkvIgjFiys4hNdQIs-eKAACLcBGAsYHQ/s999/login.png"
-              alt=""
-              width="72"
-              height="72"
-            /> */}
               <h1 className="h3 mb-3 fw-normal">
                 Total compras registradas en nuestra plataforma.
               </h1>
@@ -120,4 +112,4 @@ class Login_usuarios extends React.Component {
   }
 }
 
-export default Login_usuarios;
+export default Total_compras;
